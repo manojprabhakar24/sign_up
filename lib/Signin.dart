@@ -1,20 +1,15 @@
-import 'package:flutter/material.dart';
-import 'Signin.dart';
-void main() {
-  runApp(MaterialApp(
-    home: MyApp(),
-  ));
-}
 
-class MyApp extends StatelessWidget {
+import 'package:flutter/material.dart';
+
+class Signin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('sigin up'),
-        ),
-        body: MyCustomForm(),
+      appBar: AppBar(
+        title: Text('sigin-in form'),
+      ),
+      body: MyCustomForm(),
     );
   }
 }
@@ -35,9 +30,9 @@ class MyCustomFormState extends State<MyCustomForm> {
       key: formKey,
       child: Column(
         children: [
-          Text("signup Form", style: TextStyle(fontSize:30,
+          Text("Signin Form", style: TextStyle(fontSize:30,
               fontWeight: FontWeight.bold),),
-          Padding(padding: EdgeInsets.all(20),
+          Padding(padding: EdgeInsets.all(30),
             child: TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -46,24 +41,11 @@ class MyCustomFormState extends State<MyCustomForm> {
                 return null;
               },
               decoration: InputDecoration(
-                hintText: ("your name")
+                  hintText: ("User Name")
               ),
             ),
           ),
-      Padding(padding: EdgeInsets.all(20),
-        child: TextFormField(
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please Give Value';
-            }
-            return null;
-          },
-          decoration: InputDecoration(
-              hintText: ("your Email")
-          ),
-        ),
-      ),
-          Padding(padding: EdgeInsets.all(20),
+          Padding(padding: EdgeInsets.all(30),
             child: TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -80,12 +62,11 @@ class MyCustomFormState extends State<MyCustomForm> {
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Signing in...')));
+                    SnackBar(content: Text('processing')));
               }
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Signin() ));
+             Navigator.pop(context);
             },
-            child: Text('Sign up'),
+              child:Text("login")
           ),
 
         ],
@@ -93,5 +74,3 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
-
-
