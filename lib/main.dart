@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Signin.dart';
+import 'YourData.dart';
+
 void main() {
   runApp(MaterialApp(
     home: MyApp(),
@@ -11,10 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('sigin up'),
-        ),
-        body: MyCustomForm(),
+      appBar: AppBar(
+        title: const Text('sign up'),
+      ),
+      body: MyCustomForm(),
     );
   }
 }
@@ -26,7 +27,9 @@ class MyCustomForm extends StatefulWidget {
 }
 
 class MyCustomFormState extends State<MyCustomForm> {
-
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -35,43 +38,47 @@ class MyCustomFormState extends State<MyCustomForm> {
       key: formKey,
       child: Column(
         children: [
-          Text("signup Form", style: TextStyle(fontSize:30,
+          const Text("signup Form", style: TextStyle(fontSize: 30,
               fontWeight: FontWeight.bold),),
-          Padding(padding: EdgeInsets.all(20),
+          Padding(padding: const EdgeInsets.all(20),
             child: TextFormField(
+              controller: _nameController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please Give Value';
                 }
                 return null;
               },
-              decoration: InputDecoration(
-                hintText: ("your name")
+              decoration: const InputDecoration(
+                  hintText: ("your name")
               ),
             ),
           ),
-      Padding(padding: EdgeInsets.all(20),
-        child: TextFormField(
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please Give Value';
-            }
-            return null;
-          },
-          decoration: InputDecoration(
-              hintText: ("your Email")
-          ),
-        ),
-      ),
           Padding(padding: EdgeInsets.all(20),
             child: TextFormField(
+              controller: _emailController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please Give Value';
                 }
                 return null;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
+                  hintText: ("your Email")
+              ),
+            ),
+          ),
+          Padding(padding: const EdgeInsets.all(20),
+            child: TextFormField(
+
+              controller: _passwordController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Give Value';
+                }
+                return null;
+              },
+              decoration: const InputDecoration(
                   hintText: ("Password")
               ),
             ),
@@ -80,12 +87,16 @@ class MyCustomFormState extends State<MyCustomForm> {
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Signing in...')));
+                    const SnackBar(content: Text('Signing in...')));
               }
+              String name = _nameController.text;
+              String email = _emailController.text;
+              String password = _passwordController.text;
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Signin() ));
+                  context, MaterialPageRoute(builder: (context) =>
+                  YourData(name: name, email: email, password: password)));
             },
-            child: Text('Sign up'),
+            child: const Text('Sign up'),
           ),
 
         ],
